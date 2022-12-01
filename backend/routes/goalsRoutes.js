@@ -7,7 +7,7 @@ const {
     updateGoal, 
     deleteGoal} = require('../controllers/goalController')
 
-//import Auth Middleware    
+//import Authorization Middleware    
 const {protect} = require('../middleware/authMiddleware')    
 
 router.route('/').get(protect, getGoals).post(protect, setGoal)    
