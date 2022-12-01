@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler')
 
 const Goal = require('../models/goalModel') 
+const User = require('../models/userModel')
 
 
 
@@ -44,6 +45,19 @@ const setGoal = asyncHandler( async (req, res) => {
 const updateGoal  = asyncHandler( async (req, res) => {
 
     const goal = await Goal.findById(req.params.id)
+    const user = await User.findById(req.user.id)
+
+    //check for user
+    if(!user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
+
+    //Auth Check for goals
+    if(goal.user.toString() !== user.id) {
+        res.status(401)
+        throw new Error('User not authorized')
+    }
 
     if(!goal) {
         res.status(400)
