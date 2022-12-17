@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: false}))
 app.use('/api/goals', require('./routes/goalsRoutes'))
 app.use('/api/users', require('./routes/userRoutes'))
 
-//Serve Frontend
+//Serve Frontend by default
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../frontend/build')))
 
